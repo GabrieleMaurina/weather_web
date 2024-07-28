@@ -1,0 +1,2 @@
+[run]
+omit = weather_web/__main__.py
