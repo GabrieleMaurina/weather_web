@@ -1,0 +1,10 @@
+#keep list sorted alphabetically
+
+flask
+waitress
+pyright
+pytest
+pytest-cov
+pytest-mock
+requests
+ruff
