@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
@@ -19,9 +16,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\" --watchAll=false --coverage",
     "eject": "react-scripts eject",
-    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "clean": "rm -rf node_modules package-lock.json coverage && npm install",
     "static-checks": "npx prettier . --write && npx eslint . --fix"
   },
   "browserslist": {
@@ -37,7 +34,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-private-property-in-object": "^7.24.7",
     "@eslint/js": "^9.8.0",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
     "eslint": "^9.8.0",
     "eslint-plugin-react": "^7.35.0",
     "globals": "^15.8.0",
@@ -47,6 +47,16 @@
   "prettier": {
     "plugins": [
       "prettier-plugin-organize-imports"
+    ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 10
+      }
+    },
+    "collectCoverageFrom": [
+      "!src/index.js"
     ]
   }
 }

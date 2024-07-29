@@ -42,14 +42,8 @@ const About = () => (
   </div>
 );
 
-function Weather() {
-  const [weather, setWeather] = useState(null);
-
-  useEffect(() => {
-    getWeather(setWeather);
-  }, []);
-
-  if (!weather) {
+function Weather(props) {
+  if (!props.weather) {
     return <div>Loading...</div>;
   }
 
@@ -65,21 +59,21 @@ function Weather() {
           <Col md="auto">
             <Card style={{ width: "18rem" }}>
               <Card.Title>
-                <h2>{weather.address}</h2>
+                <h2>{props.weather.address}</h2>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                <h3>Latitude: {weather.lat}</h3>
-                <h3>Longitude: {weather.lon}</h3>
+                <h3>Latitude: {props.weather.lat}</h3>
+                <h3>Longitude: {props.weather.lon}</h3>
               </Card.Subtitle>
               <ListGroup>
                 <ListGroup.Item variant="danger">
-                  Max Temperature: {weather.max_temp}°F
+                  Max Temperature: {props.weather.max_temp}°F
                 </ListGroup.Item>
                 <ListGroup.Item variant="success">
-                  Current Temperature: {weather.current_temp}°F
+                  Current Temperature: {props.weather.current_temp}°F
                 </ListGroup.Item>
                 <ListGroup.Item variant="info">
-                  Min Temperature: {weather.min_temp}°F
+                  Min Temperature: {props.weather.min_temp}°F
                 </ListGroup.Item>
               </ListGroup>
             </Card>
@@ -91,6 +85,8 @@ function Weather() {
 }
 
 function App() {
+  const [weather, setWeather] = useState(null);
+  useEffect(() => getWeather(setWeather), []);
   return (
     <Router>
       <Navbar bg="primary" data-bs-theme="dark">
@@ -112,7 +108,7 @@ function App() {
       <br />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/weather" element={<Weather />} />
+        <Route path="/weather" element={<Weather weather={weather} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </Router>
