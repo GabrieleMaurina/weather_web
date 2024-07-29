@@ -1,9 +1,11 @@
 import flask
+import flask_cors
 
 import weather_web.forecast
 import weather_web.location
 
 app = flask.Flask(__name__)
+flask_cors.CORS(app)
 
 
 @app.route("/")
@@ -13,8 +15,6 @@ def index():
 
 @app.route("/weather")
 def weather():
-    print(flask.request)
-    print(flask.request.remote_addr)
     ip = flask.request.remote_addr
     if ip is None:
         return flask.jsonify(error="Could not get IP address")
